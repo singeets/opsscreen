@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Chatbot.css';
+import { fetchChatResponse } from './api';
 
 const Chatbot = ({ onMessageSubmit }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,22 +12,12 @@ const Chatbot = ({ onMessageSubmit }) => {
     setUserInput(e.target.value);
   };
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (userInput.trim()) {
-      const response = generateMockResponse(userInput);
-      onMessageSubmit(userInput, response);
+      const response = await fetchChatResponse(userInput);
+      onMessageSubmit(userInput, response.response);
       setUserInput("");
     }
-  };
-
-  const generateMockResponse = (question) => {
-    const responses = [
-      "This is a mock response to your question.",
-      "Thank you for reaching out!",
-      "Please provide more details.",
-      "We are here to help you!"
-    ];
-    return responses[Math.floor(Math.random() * responses.length)];
   };
 
   return (

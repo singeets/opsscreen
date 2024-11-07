@@ -3,24 +3,13 @@ import { CSVLink } from 'react-csv';
 import jsPDF from 'jspdf';
 import Modal from './Modal';
 import './SidePanel.css';
+import { fetchPanelData } from './api';
 
 const SidePanel = () => {
   const [modalData, setModalData] = useState({ isOpen: false, title: "", data: [] });
 
-  const currentIssues = [
-    { id: 1, title: "Issue 1", description: "Current issue description 1" },
-    { id: 2, title: "Issue 2", description: "Current issue description 2" }
-  ];
-  const solvedIssues = [
-    { id: 3, title: "Solved Issue 1", description: "Solved issue description 1" },
-    { id: 4, title: "Solved Issue 2", description: "Solved issue description 2" }
-  ];
-  const reports = [
-    { reportId: 1, name: "Report 1", details: "Report details 1" },
-    { reportId: 2, name: "Report 2", details: "Report details 2" }
-  ];
-
-  const openModal = (title, data) => {
+  const openModal = async (title) => {
+    const data = await fetchPanelData(title);
     setModalData({ isOpen: true, title, data });
   };
 
@@ -43,13 +32,13 @@ const SidePanel = () => {
 
   return (
     <div className="side-panel">
-      <div className="tile" onClick={() => openModal("Current Issues", currentIssues)}>
+      <div className="tile" onClick={() => openModal("Current Issues")}>
         <h3>Current Issues</h3>
       </div>
-      <div className="tile" onClick={() => openModal("Solved Issues", solvedIssues)}>
+      <div className="tile" onClick={() => openModal("Solved Issues")}>
         <h3>Solved Issues</h3>
       </div>
-      <div className="tile" onClick={() => openModal("Reports", reports)}>
+      <div className="tile" onClick={() => openModal("Reports")}>
         <h3>Reports</h3>
       </div>
 
