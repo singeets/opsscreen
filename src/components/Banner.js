@@ -1,21 +1,16 @@
+// src/TopBanner.js
+
 import React from 'react';
-import './Banner.css';
+import { Box, Typography, Divider } from '@mui/material';
 
-const Banner = () => {
-  const currentDate = new Date().toLocaleDateString();
+const TopBanner = () => (
+  <Box display="flex" flexDirection="column" alignItems="flex-start" p={2}>
+    <Typography variant="h6">Operations</Typography>
+    <Typography variant="body2">Department: Finance</Typography>
+    <Divider sx={{ my: 1, width: '100%' }} />
+    <Typography variant="body2">User: John Doe</Typography>
+    <Typography variant="body2">Date: {new Date().toLocaleDateString()}</Typography>
+  </Box>
+);
 
-  return (
-    <div className="banner">
-      <div className="banner-left">
-        <div className="banner-title">Operations</div>
-        <div className="banner-subtitle">Department Name</div>
-      </div>
-      <div className="banner-right">
-        <div className="banner-user">User: admin</div>
-        <div className="banner-date">Date: {currentDate}</div>
-      </div>
-    </div>
-  );
-};
-
-export default Banner;
+export default TopBanner;
